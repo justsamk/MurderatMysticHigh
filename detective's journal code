@@ -1,0 +1,1121 @@
+#Detective's journal code from Murder at Mystic High (Insta @murderatmystichigh)
+
+#variables separeted by journal sections. Note: Not all varaibles are listed as most are found during the game so they're in separte .rpy files
+#DN3
+default ritclub = False
+default moved = False
+
+#DN4
+default first = True
+
+#These variables are for the crosses/checks section of the journal. They are outside of the screen in order to save the user's input. If you wanted it to be erased after they leave/turn the page/etc., defiine variables inside the screen
+#DN4B
+default v1 = False
+default v2 = False
+default v3 = False
+default v4 = False
+default v5 = False
+default v6 = False
+default v7 = False
+default v8 = False
+default v9 = False
+default v10 = False
+default v11 = False
+default v12 = False
+default v13 = False
+default v14 = False
+default v15 = False
+default v16 = False
+default v17 = False
+default v18 = False
+default v19 = False
+default v20 = False
+default v21 = False
+default v22 = False
+default v23 = False
+default v24 = False
+
+#DN4T
+default x1 = True
+default x2 = True
+default x3 = True
+default x4 = True
+default x5 = True
+default x6 = True
+default x7 = True
+default x8 = True
+default x9 = True
+default x10 = True
+default x11 = True
+default x12 = True
+default x13 = True
+default x14 = True
+default x15 = True
+default x16 = True
+default x17 = True
+default x18 = True
+default x19 = True
+default x20 = True
+default x21 = True
+default x22 = True
+default x23 = True
+default x24 = True
+
+
+#Front of journal
+#certain clues only show up when more than one clue is found. So, I defined new variables specifically for that
+label dn:
+    scene frontdn_tabs
+    if (aritalk and derricktalk and kayatalk_two and poppeytalk):
+        $ ritclub = True
+    if (dragmarks and ritroomscene):
+        $ moved = True
+    call screen tabs
+
+#these are the tabs for the front of the journal. All tabs are named "Tab(identifying letter)R/L_idle/hover.png" This makes it easy to copy and past for other screens.
+screen tabs:
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.069
+            auto "TabCR_%s.png"
+            action Jump("dn_one")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.176
+            auto "TabSR_%s.png"
+            action Jump("dn_two")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.285
+            auto "TabCFR_%s.png"
+            action Jump("dn_three")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.394
+            auto "TabEH_%s.png"
+            action Jump("dn_four")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.5
+            auto "TabEsc_%s.png"
+            action Jump("cont")
+
+#First page of journal
+#red markings will only appear when the player choses to solve the murder
+label dn_one:
+    scene dn_open
+    if solveit:
+        show one_red
+    call screen dn_one 
+
+#All clues are idle image buttons so there is no need for any action or hover image
+screen dn_one:
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            if body:
+                xpos .258
+                ypos 0.17
+                idle "DN1_clue1.png"
+                action NullAction()
+            else:
+                xpos .258
+                ypos 0.155
+                idle "DN1_nctitle.png"
+                action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .305
+        if dragmarks:
+            ypos 0.247
+            idle "DN1_clue2.png"
+            action NullAction()
+        else:
+            ypos 0.27
+            idle "DN1_ncL.png"
+            action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .25
+        if diary:
+            ypos 0.374
+            idle "DN1_clue3.png"
+            action NullAction()
+        else:
+            ypos 0.374
+            idle "DN1_ncR.png"
+            action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .325
+        if letter:
+            ypos .502
+            idle "DN1_clue4.png"
+            action NullAction()
+        else:
+            ypos 0.51
+            idle "DN1_ncL.png"
+            action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .265
+        if ritbook:
+            ypos 0.65
+            idle "DN1_clue5.png"
+            action NullAction()
+        else:
+            ypos 0.65
+            idle "DN1_ncR.png"
+            action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .316
+        if wood_chips:
+            ypos .82
+            idle "DN1_clue6.png"
+            action NullAction()
+        else:
+            ypos 0.84
+            idle "DN1_ncL.png"
+            action NullAction()
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .707
+            if a_plus:
+                ypos 0.165
+                idle "DN1_clue7.png"
+                action NullAction()
+            else:
+                ypos 0.165
+                idle "DN1_ncL.png"
+                action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .66
+        if book:
+            ypos 0.31
+            idle "DN1_clue8.png"
+            action NullAction()
+        else:
+            ypos 0.31
+            idle "DN1_ncR.png"
+            action NullAction()
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .7208
+            if scratches:
+                ypos .5
+                idle "DN1_clue9.png"
+                action NullAction()
+            else:
+                ypos .502
+                idle "DN1_ncL.png"
+                action NullAction()
+    #tabs
+    #All R tabs go to the screen on the tab. All L tabs go to the screen before the one on the tab.
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .109
+            ypos 0.069
+            auto "TabCL_%s.png"
+            action Jump("dn")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.176
+            auto "TabSR_%s.png"
+            action Jump("dn_two")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.285
+            auto "TabCFR_%s.png"
+            action Jump("dn_three")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.394
+            auto "TabEH_%s.png"
+            action Jump("dn_four")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.5
+            auto "TabEsc_%s.png"
+            action Jump("cont")
+
+
+#Second section of journal
+#code is similar to first section except for different x/y positons and different images
+label dn_two:
+    scene dn_open
+    if solveit:
+        show two_red
+    call screen dn_two
+
+screen dn_two:
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .275
+            ypos 0.16
+            if sanadtalk:
+                idle "DN2_clue1.png"
+                action NullAction()
+            else:
+                idle "DN2_nctitle.png"
+                action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .285
+        ypos 0.3
+        if book_turn:
+            idle "DN2_clue2.png"
+            action NullAction()
+        else:
+            idle "DN2_ncL.png"
+            action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .288
+        ypos 0.405
+        if bennytalk:
+            idle "DN2_clue3.png"
+            action NullAction()
+        else:
+            idle "DN2_ncR.png"
+            action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .298
+        ypos .552
+        if valdictorian:
+            idle "DN2_clue4.png"
+            action NullAction()
+        else:
+            idle "DN2_ncL.png"
+            action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .284
+        ypos 0.75
+        if ritual_stuff:
+            idle "DN2_clue5.png"
+            action NullAction()
+        else:
+            idle "DN2_ncR.png"
+            action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .29
+        ypos .858
+        if derricktalk:
+            idle "DN2_clue6.png"
+            action NullAction()
+        else:
+            idle "DN2_ncL.png"
+            action NullAction()
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .704
+            ypos 0.19
+            if book_turn:
+                idle "DN2_clue7.png"
+                action NullAction()
+            else:
+                idle "DN2_ncL.png"
+                action NullAction()
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .667
+        ypos 0.355
+        if poppeytalk:
+            idle "DN2_clue8.png"
+            action NullAction()
+        else:
+            idle "DN1_ncR.png"
+            action NullAction()
+    #tabs
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .109
+            ypos 0.069
+            auto "TabCL_%s.png"
+            action Jump("dn")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .106
+            ypos 0.176
+            auto "TabSL_%s.png"
+            action Jump("dn_one")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.285
+            auto "TabCFR_%s.png"
+            action Jump("dn_three")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.394
+            auto "TabEH_%s.png"
+            action Jump("dn_four")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.5
+            auto "TabEsc_%s.png"
+            action Jump("cont")
+
+#Third section of journal
+#code is similar to first/second sections except for different x/y positons and different images
+label dn_three:
+    scene dn_open
+    if solveit:
+        show three_red
+    call screen dn_three
+
+screen dn_three:
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .26
+            ypos 0.17
+            if diary:
+                idle "DN3_clue1.png"
+                action NullAction()
+            else:
+                idle "DN3_nctitle.png"
+                action NullAction()
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .345
+            ypos 0.355
+            if ectobook:
+                idle "DN3_clue2.png"
+                action NullAction()
+            else:
+                idle "DN3_ncR.png"
+                action NullAction()
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            ypos 0.512
+            if ritbook:
+                xpos .232
+                idle "DN3_clue3.png"
+                action NullAction()
+            else:
+                xpos .25
+                idle "DN3_ncL.png"
+                action NullAction()
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .344
+            if moved:
+                ypos 0.708
+                idle "DN3_clue4.png"
+                action NullAction()
+            else:
+                ypos 0.68
+                idle "DN3_ncR.png"
+                action NullAction()
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            ypos 0.859
+            if book:
+                xpos .232
+                idle "DN3_clue5.png"
+                action NullAction()
+            else:
+                xpos .25
+                idle "DN3_ncL.png"
+                action NullAction()
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .74
+            ypos 0.2
+            if ritclub:
+                idle "DN3_clue6.png"
+                action NullAction()
+            else:
+                idle "DN3_ncL.png"
+                action NullAction()
+    #tabs
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .109
+            ypos 0.069
+            auto "TabCL_%s.png"
+            action Jump("dn")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .106
+            ypos 0.176
+            auto "TabSL_%s.png"
+            action Jump("dn_one")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .107
+            ypos 0.285
+            auto "TabCFL_%s.png"
+            action Jump("dn_two")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.394
+            auto "TabEH_%s.png"
+            action Jump("dn_four")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.5
+            auto "TabEsc_%s.png"
+            action Jump("cont")
+
+
+#Fourth Section of the Journal
+#This is the checks and boxes section of the journal
+label dn_four:
+    scene dn_open
+    if solveit:
+        show bg_dnfour
+        if first:
+            "Hint: Case facts are more important than case theories!"
+            $ first = False
+    else:
+        show nobg_dnfour
+    call screen dn_four
+
+#For the check and boxes, if you want to place things easier, do the first one then the one below. After, subtract the ypos1 from ypos2 and add that value to ypos2 to get the third cordinates. 
+#Keep adding that value to the ypos until you get the entire vertical row. After, repeat but with the horizontal row with the xpos. Then you can past the vertical ones and just change the variables and xpos.
+screen dn_four:
+    if solveit:
+    #top chart
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .25
+            ypos 0.24
+            if x1:
+                idle "x.png"
+                action SetVariable("x1", False)
+            else:
+                idle "v.png"
+                action SetVariable("x1", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .25
+            ypos 0.29
+            if x2:
+                idle "x.png"
+                action SetVariable("x2", False)
+            else:
+                idle "v.png"
+                action SetVariable("x2", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .25
+            ypos 0.34
+            if x3:
+                idle "x.png"
+                action SetVariable("x3", False)
+            else:
+                idle "v.png"
+                action SetVariable("x3", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .25
+            ypos 0.39
+            if x4:
+                idle "x.png"
+                action SetVariable("x4", False)
+            else:
+                idle "v.png"
+                action SetVariable("x4", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .25
+            ypos 0.44
+            if x5:
+                idle "x.png"
+                action SetVariable("x5", False)
+            else:
+                idle "v.png"
+                action SetVariable("x5", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .25
+            ypos 0.49
+            if x6:
+                idle "x.png"
+                action SetVariable("x6", False)
+            else:
+                idle "v.png"
+                action SetVariable("x6", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .25
+            ypos 0.54
+            if x7:
+                idle "x.png"
+                action SetVariable("x7", False)
+            else:
+                idle "v.png"
+                action SetVariable("x7", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .34
+            ypos 0.24
+            if x8:
+                idle "x.png"
+                action SetVariable("x8", False)
+            else:
+                idle "v.png"
+                action SetVariable("x8", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .34
+            ypos 0.29
+            if x9:
+                idle "x.png"
+                action SetVariable("x9", False)
+            else:
+                idle "v.png"
+                action SetVariable("x9", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .34
+            ypos 0.34
+            if x10:
+                idle "x.png"
+                action SetVariable("x10", False)
+            else:
+                idle "v.png"
+                action SetVariable("x10", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .34
+            ypos 0.39
+            if x11:
+                idle "x.png"
+                action SetVariable("x11", False)
+            else:
+                idle "v.png"
+                action SetVariable("x11", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .34
+            ypos 0.44
+            if x12:
+                idle "x.png"
+                action SetVariable("x12", False)
+            else:
+                idle "v.png"
+                action SetVariable("x12", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .34
+            ypos 0.49
+            if x13:
+                idle "x.png"
+                action SetVariable("x13", False)
+            else:
+                idle "v.png"
+                action SetVariable("x13", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .34
+            ypos 0.54
+            if x14:
+                idle "x.png"
+                action SetVariable("x14", False)
+            else:
+                idle "v.png"
+                action SetVariable("x14", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .43
+            ypos 0.24
+            if x15:
+                idle "x.png"
+                action SetVariable("x15", False)
+            else:
+                idle "v.png"
+                action SetVariable("x15", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .43
+            ypos 0.29
+            if x16:
+                idle "x.png"
+                action SetVariable("x16", False)
+            else:
+                idle "v.png"
+                action SetVariable("x16", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .43
+            ypos 0.34
+            if x17:
+                idle "x.png"
+                action SetVariable("x17", False)
+            else:
+                idle "v.png"
+                action SetVariable("x17", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .43
+            ypos 0.39
+            if x18:
+                idle "x.png"
+                action SetVariable("x18", False)
+            else:
+                idle "v.png"
+                action SetVariable("x18", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .43
+            ypos 0.44
+            if x19:
+                idle "x.png"
+                action SetVariable("x19", False)
+            else:
+                idle "v.png"
+                action SetVariable("x19", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .43
+            ypos 0.49
+            if x20:
+                idle "x.png"
+                action SetVariable("x20", False)
+            else:
+                idle "v.png"
+                action SetVariable("x20", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .43
+            ypos 0.54
+            if x21:
+                idle "x.png"
+                action SetVariable("x21", False)
+            else:
+                idle "v.png"
+                action SetVariable("x21", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .25
+            ypos 0.59
+            if x22:
+                idle "x.png"
+                action SetVariable("x22", False)
+            else:
+                idle "v.png"
+                action SetVariable("x22", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .34
+            ypos 0.59
+            if x23:
+                idle "x.png"
+                action SetVariable("x23", False)
+            else:
+                idle "v.png"
+                action SetVariable("x23", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .43
+            ypos 0.59
+            if x24:
+                idle "x.png"
+                action SetVariable("x24", False)
+            else:
+                idle "v.png"
+                action SetVariable("x24", True)
+        
+    #bottom chart
+    #Switched to v's to help separate them. Can keep as x's if wanted.
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .63
+            ypos 0.49
+            if v1:
+                idle "v.png"
+                action SetVariable("v1", False)
+            else:
+                idle "x.png"
+                action SetVariable("v1", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .63
+            ypos 0.54
+            if v2:
+                idle "v.png"
+                action SetVariable("v2", False)
+            else:
+                idle "x.png"
+                action SetVariable("v2", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .63
+            ypos 0.59
+            if v3:
+                idle "v.png"
+                action SetVariable("v3", False)
+            else:
+                idle "x.png"
+                action SetVariable("v3", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .63
+            ypos 0.64
+            if v4:
+                idle "v.png"
+                action SetVariable("v4", False)
+            else:
+                idle "x.png"
+                action SetVariable("v4", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .63
+            ypos 0.69
+            if v5:
+                idle "v.png"
+                action SetVariable("v5", False)
+            else:
+                idle "x.png"
+                action SetVariable("v5", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .63
+            ypos 0.74
+            if v6:
+                idle "v.png"
+                action SetVariable("v6", False)
+            else:
+                idle "x.png"
+                action SetVariable("v6", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .63
+            ypos 0.79
+            if v7:
+                idle "v.png"
+                action SetVariable("v7", False)
+            else:
+                idle "x.png"
+                action SetVariable("v7", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .63
+            ypos 0.84
+            if v8:
+                idle "v.png"
+                action SetVariable("v8", False)
+            else:
+                idle "x.png"
+                action SetVariable("v8", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .72
+            ypos 0.49
+            if v9:
+                idle "v.png"
+                action SetVariable("v9", False)
+            else:
+                idle "x.png"
+                action SetVariable("v9", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .72
+            ypos 0.54
+            if v10:
+                idle "v.png"
+                action SetVariable("v10", False)
+            else:
+                idle "x.png"
+                action SetVariable("v10", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .72
+            ypos 0.59
+            if v11:
+                idle "v.png"
+                action SetVariable("v11", False)
+            else:
+                idle "x.png"
+                action SetVariable("v11", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .72
+            ypos 0.64
+            if v12:
+                idle "v.png"
+                action SetVariable("v12", False)
+            else:
+                idle "x.png"
+                action SetVariable("v12", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .72
+            ypos 0.69
+            if v13:
+                idle "v.png"
+                action SetVariable("v13", False)
+            else:
+                idle "x.png"
+                action SetVariable("v13", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .72
+            ypos 0.74
+            if v14:
+                idle "v.png"
+                action SetVariable("v14", False)
+            else:
+                idle "x.png"
+                action SetVariable("v14", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .72
+            ypos 0.79
+            if v15:
+                idle "v.png"
+                action SetVariable("v15", False)
+            else:
+                idle "x.png"
+                action SetVariable("v15", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .72
+            ypos 0.84
+            if v16:
+                idle "v.png"
+                action SetVariable("v16", False)
+            else:
+                idle "x.png"
+                action SetVariable("v16", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .81
+            ypos 0.49
+            if v17:
+                idle "v.png"
+                action SetVariable("v17", False)
+            else:
+                idle "x.png"
+                action SetVariable("v17", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .81
+            ypos 0.54
+            if v18:
+                idle "v.png"
+                action SetVariable("v18", False)
+            else:
+                idle "x.png"
+                action SetVariable("v18", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .81
+            ypos 0.59
+            if v19:
+                idle "v.png"
+                action SetVariable("v19", False)
+            else:
+                idle "x.png"
+                action SetVariable("v19", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .81
+            ypos 0.64
+            if v20:
+                idle "v.png"
+                action SetVariable("v20", False)
+            else:
+                idle "x.png"
+                action SetVariable("v20", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .81
+            ypos 0.69
+            if v21:
+                idle "v.png"
+                action SetVariable("v21", False)
+            else:
+                idle "x.png"
+                action SetVariable("v21", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .81
+            ypos 0.74
+            if v22:
+                idle "v.png"
+                action SetVariable("v22", False)
+            else:
+                idle "x.png"
+                action SetVariable("v22", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .81
+            ypos 0.79
+            if v23:
+                idle "v.png"
+                action SetVariable("v23", False)
+            else:
+                idle "x.png"
+                action SetVariable("v23", True)
+        imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .81
+            ypos 0.84
+            if v24:
+                idle "v.png"
+                action SetVariable("v24", False)
+            else:
+                idle "x.png"
+                action SetVariable("v24", True)
+    #tabs
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .109
+            ypos 0.069
+            auto "TabCL_%s.png"
+            action Jump("dn")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .106
+            ypos 0.176
+            auto "TabSL_%s.png"
+            action Jump("dn_one")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .107
+            ypos 0.285
+            auto "TabCFL_%s.png"
+            action Jump("dn_two")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .106
+            ypos 0.394
+            auto "TabEHL_%s.png"
+            action Jump("dn_three")
+    imagebutton:
+            xanchor 0.5
+            yanchor 0.5
+            xpos .874
+            ypos 0.5
+            auto "TabEsc_%s.png"
+            action Jump("cont")
+
+#this jumps back to where the player was. The variable will change to true when the player is at the sections, then turns to false when they choose to leave
+label cont:
+    if cs:
+        scene crimescene
+        call screen crimescene 
+    elif liba:
+        jump mainlibrary
+    elif rit:
+        jump ritualroom
+    elif loc:
+        jump lockerbg
+    elif solveit:
+        jump what
+    else:
+        return
