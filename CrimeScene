@@ -1,0 +1,238 @@
+screen crimescene:
+    #crimescene bg is used from the label that called the screen
+    #Uses image buttons so that the player can click on a clue
+    #When the clue is clicked, it calls a label which explains the clue found
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .762
+        ypos 0.52
+        auto "catclue_%s.png"
+        action Jump("cat")
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .701
+        ypos 0.82
+        auto "ghostbody_%s.png"
+        action Jump("body")
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .92
+        ypos 0.82
+        auto "dragmarks_%s.png"
+        action Jump("dragmarks")
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .1
+        ypos 0.9
+        auto "button1_%s.png"
+        action Jump("talking")
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos .225
+        ypos 0.92
+        auto "journal_%s.png"
+        action Jump("journal")
+
+#label is called when the cat is clicked
+label cat:
+    scene crimescene_hints
+    #if the cat has already been clicked and so has the body, this dialogue plays out
+    if book_turn:
+        if body:
+            show poppey at left
+            yn "Is it possible for her to be the murderer? I saw the marks on the body. They could be from a cat."
+            p "Not unless she's a possessed cat. Just like humans, cats can't touch ghosts unless possessed or possessing."
+            yn "That is... interesting."
+            yn "Can you touch ghosts?"
+            hide poppey
+            show poppeynervous at left
+            p "Are you implying I did this?!"
+            menu:
+                "I wasn't":
+                    yn "I was just asking. Are you going to answer or...?"
+                    hide poppeynervous
+                    show poppey at left
+                    p "Oh, well, I can since I'm actually a ghost. I've just managed to possess a puppet."
+                    p "Interestingly, I was named Poppey before possessing a puppet!"
+                    yn "Um, okay..."
+                    yn "I wonder if she could've done this {i}"
+                    scene crimescene
+                    call screen crimescene
+                "I might have been":
+                    yn "I was subtly implying it. Is there a reason you don't want to answer?"
+                    p "No! I know I'm innocent. You're wasting your time thinking it was me. I promise!"
+                    hide poppeynervous
+                    show poppey at left
+                    p "And, to answer, yes, I can but that doesn't mean I killed him."
+                    yn "whatever you say..."
+                    scene crimescene
+                    call screen crimescene
+#If this is the first time the user has clicked on the cat, this dialogue plays and book_turn turns true
+    else:
+        $ book_turn = True
+        yn "Is that a cat?"
+        show poppey at left
+        p "Yup, that's Wyatt's cat, Kat! She probably followed him here."
+        yn "He named his cat cat?"
+        p "Yup, with a K. She's cute but she can be kind of annoying. She's always messing with my stuff and knocking down everything.
+            She can even turn book pages, which I'm pretty sure she learned just to annoy me."
+        yn "um... okay?"
+        #if body has been clicked on, this dialogue plays
+        if body:
+            yn "Is it possible for her to be the murderer? I saw the marks on the body. They could be from a cat."
+            p "Not unless she's a possessed cat. Just like humans, cats can't touch ghosts unless possessed or possessing."
+            yn "That is... interesting."
+            yn "Can you touch ghosts?"
+            hide poppey
+            show poppeynervous at left
+            p "Are you implying I did this?!"
+            menu:
+                "I wasn't":
+                    yn "I was just asking. Are you going to answer or...?"
+                    hide poppeynervous
+                    show poppey at left
+                    p "Oh, well, I can since I'm actually a ghost. I've just managed to possess a puppet."
+                    p "Interestingly, I was named Poppey before possessing a puppet!"
+                    yn "Um, okay..."
+                    yn "{i} I wonder if she could've done this"
+                    scene crimescene
+                    call screen crimescene
+                "I might have been":
+                    yn "I was subtly implying it. Is there a reason you don't want to answer?"
+                    p "No! I know I'm innocent. You're wasting your time thinking it was me. I promise!"
+                    hide poppeynervous
+                    show poppey at left
+                    p "And, to answer, yes, I can but that doesn't mean I killed him."
+                    yn "whatever you say..."
+                    scene crimescene
+                    call screen crimescene
+
+        scene crimescene
+        call screen crimescene
+    
+#this label plays when body is clicked
+label body:
+    scene crimescene_hints
+    if body:
+        menu:
+            "Question if anything has been touched":
+                show poppey at left
+                yn "Has anything been touched?"
+                p "Not after the janitor found the body!"
+                p "It is cleaning day today though, which is why the room looks so good."
+                menu:
+                    "Question about the janitor":
+                        yn "When did the janitor find the body?"
+                        hide poppey
+                        show poppeysad at left
+                        p "Well, they left for their ten-minute break around noon and when they came back, she found Wyatt."
+                        yn "{i} Interesting, that's not a lot of time to clean up the crime scene..."
+                        yn "{i} That's if this is the crime scene"
+                    "Continue looking for clues":
+                        scene crimescene
+                        call screen crimescene
+            "Question about the janitor":
+                show poppey at left
+                yn "When did the janitor find the body?"
+                hide poppey
+                show poppeysad at left
+                p "Well, they left for their ten minute break around noon and when they came back, she found Wyatt."
+                yn "{i} Interesting, that's not a lot of time to clean up the crime scene..."
+                yn "{i} That's if this is the crime scene"
+                hide poppeysad
+                show poppey at left
+                menu:
+                    "Question if anything has been touched":
+                        yn "Has anything been touched?"
+                        p "Not after the janitor found the body!"
+                        p "It is cleaning day today though, which is why the room looks so good."
+                    "Continue looking for clues":
+                        scene crimescene
+                        call screen crimescene
+            "Continue looking for clues":
+                scene crimescene
+                call screen crimescene
+    else:
+        $ body = True
+        yn "Is that the body? If I can even call it that. It looks like an empty scratched cloth."
+        show poppey at left
+        p "Yup, on the rare occasion a ghost dies, all that's left is a cloth and ectoplasm"
+
+        menu:
+            "Ectoplasm?":
+                yn "Ectoplasm?"
+                p "You don't know what ectoplasm is? It's basically like our blood."
+                p "You know, you don't seem to know a lot about ghosts for someone investigating a ghost murder. How'd you get this job?"
+                yn "I have no clue..."
+
+                menu:
+                    "Question if anything has been touched":
+                        yn "Has anything been touched?"
+                        p "Not after the janitor found the body!"
+                        p "It is cleaning day today though, which is why the room looks so good."
+                        menu:
+                            "Question about the janitor":
+                                yn "When did the janitor find the body?"
+                                hide poppey
+                                show poppeysad at left
+                                p "Well, they left for their ten minute break around noon and when they came back, she found Wyatt."
+                                yn "{i} Interesting, that's not a lot of time to clean up the crime scene..."
+                                yn "{i} That's if this is the crime scene"
+                                scene crimescene
+                                call screen crimescene
+
+                            "Continue looking for clues":
+                                scene crimescene
+                                call screen crimescene
+
+                    "Continue looking for clues":
+                        scene crimescene
+                        call screen crimescene
+
+            "Has anything been touched?":
+                yn "Has anything been touched?"
+                p "Not after the janitor found the body!"
+                p "It is cleaning day today though, which is why the room looks so good."
+                menu:
+                    "Question about the janitor":
+                        yn "When did the janitor find the body?"
+                        hide poppey
+                        show poppeysad at left
+                        p "Well, they left for their ten minute break around noon and when they came back, she found Wyatt."
+                        yn "{i} Interesting, that's not a lot of time to clean up the crime scene..."
+                        yn "{i} That's if this is the crime scene"
+                        scene crimescene
+                        call screen crimescene
+                    "Continue looking for clues":
+                        scene crimescene
+                        call screen crimescene
+
+#this label plays when the dragmarks are clicked
+label dragmarks:
+    scene crimescene_hints
+    $ dragmarks = True
+    yn "{i} It looks like the body was dragged..."
+    yn "Can ghosts move things?"
+    show poppey at left
+    p "We can, but nothing at the crime scene was moved!"
+    yn "{i} That means anyone here could've moved the body."
+    #if player found all clues, this will play and then jump to the next label
+    if body and book_turn:
+        yn "I think we should tape up the crime scene for now and do some investigating."
+        yn "{i} Maybe I can find the true scene of the crime..."
+        p "Alrighty!"
+        "Press found all 3 clues to continue on or take a look at your journal first!"
+    scene crimescene
+    call screen crimescene
+
+label journal:
+    scene frontdn_tabs
+    $ cs = True
+    "This is your journal. As you find clues, the journal will be filled!"
+    jump dn
+
